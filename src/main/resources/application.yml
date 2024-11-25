@@ -15,4 +15,3 @@ management:
         include: "*"
 #    prometheus:
 #      enabled: true
-
