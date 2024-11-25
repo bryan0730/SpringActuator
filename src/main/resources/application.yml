@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: actuator
+
+server:
+  port: 7777
+  tomcat:
+    mbeanregistry:
+      enabled: true # tomcat과 관련된 Endpoint를 노출한다.
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#    prometheus:
+#      enabled: true
+
