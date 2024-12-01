@@ -1,6 +1,3 @@
-# SpringActuator
-
-
 # Spring Business Log visualization
 
 2024.11.28 ~ 2024.12.00
