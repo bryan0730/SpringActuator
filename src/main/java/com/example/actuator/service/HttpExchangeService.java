@@ -64,7 +64,8 @@ public class HttpExchangeService {
             httpExchangeLogRepository.saveAll(httpTraceList);
             log.info("Saved all exchanges to database: {}", httpTraceList.toString());
         } catch (Exception e) {
-            log.error("Failed to save exchanges to database", e);
+            log.info("Failed to save exchanges to database", e);
+            exchanges.clear();
             throw e; // 트랜잭션 롤백 발생
         }
     }

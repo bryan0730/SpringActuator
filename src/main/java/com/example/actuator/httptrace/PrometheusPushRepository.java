@@ -45,7 +45,7 @@ public class PrometheusPushRepository implements HttpExchangeRepository {
 
     @Override
     public List<HttpExchange> findAll() {
-        log.error("findAll Repository");
+        log.info("findAll Repository");
         synchronized (exchanges) {
             return new LinkedList<>(exchanges);
         }
@@ -61,8 +61,7 @@ public class PrometheusPushRepository implements HttpExchangeRepository {
             String uri = exchange.getRequest().getUri().getPath();
             int status = exchange.getResponse().getStatus();
             requestGauge.labels(method, uri, String.valueOf(status)).inc();
-
-            log.error("exchange value " + exchange.toString());
+            log.info("exchange value " + exchange.toString());
 
             // 요청이 임계값에 도달하면 푸시
             if (exchanges.size() >= THRESHOLD) {
@@ -77,10 +76,11 @@ public class PrometheusPushRepository implements HttpExchangeRepository {
     public void pushToPrometheus() {
         try {
             pushGateway.push(registry, "http_exchange_job");
-            log.error("Pushed to Prometheus Push Gateway");
+            log.info("Pushed to Prometheus Push Gateway");
             // 요청 기록 초기화
             exchanges.clear();
         } catch (IOException e) {
+            log.info("An IOException occurred during Prometheus push", e);
             e.printStackTrace();
             // rollback
         }
