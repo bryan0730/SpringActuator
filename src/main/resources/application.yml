@@ -1,11 +1,26 @@
 spring:
-  application:
-    name: actuator
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/actuator?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
-    password: 1234
+    password: meta1234!@#$
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update # 자동 테이블 생성 및 업데이트 (옵션: validate, update, create, create-drop)
+    show-sql: true      # 실행되는 SQL을 출력
+    properties:
+      hibernate:
+        format_sql: true # SQL을 보기 좋게 포맷
+        dialect: org.hibernate.dialect.MySQL8Dialect # MySQL 8.x에 적합한 방언 설정
+
+  # 로깅 설정 (선택 사항)
+  logging:
+    level:
+      org.hibernate.SQL: DEBUG        # SQL 쿼리를 로깅
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE # SQL 파라미터 로깅
+
+
 
 server:
   port: 7777
@@ -13,10 +28,12 @@ server:
     mbeanregistry:
       enabled: true # tomcat과 관련된 Endpoint를 노출한다.
 
+
+# url :
 management:
   endpoints:
     web:
       exposure:
         include: "*"
-#    prometheus:
-#      enabled: true
+    prometheus:
+      enabled: true

@@ -1,10 +1,14 @@
 package com.example.actuator;
 
+import com.example.actuator.httptrace.PrometheusPushRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.web.exchanges.InMemoryHttpExchangeRepository;
+import org.springframework.boot.actuate.web.exchanges.HttpExchangeRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.boot.actuate.web.exchanges.InMemoryHttpExchangeRepository;
 
 @EnableScheduling
 @SpringBootApplication
@@ -14,9 +18,10 @@ public class ActuatorApplication {
         SpringApplication.run(ActuatorApplication.class, args);
     }
 
-    @Bean
-    public InMemoryHttpExchangeRepository httpExchangeRepository(){
-        return new InMemoryHttpExchangeRepository();
-    }
+//    @Bean
+//    @Primary
+//    public HttpExchangeRepository httpExchangeRepository(){
+//        return new PrometheusPushRepository();
+//    }
 
 }
