@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class HttpTraceTasklet implements Tasklet, StepExecutionListener {
 
-    @Value("#{jobParameters[date]}")
+    @Value("#{jobParameters[ym]}")
     private String ym;
 
     private final HttpTraceRepository httpTraceRepository;
