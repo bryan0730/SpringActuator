@@ -37,7 +37,7 @@ public class PrometheusPushRepository implements HttpExchangeRepository {
         this.pushGateway = new PushGateway("localhost:9091"); // Push Gateway URL 설정
         this.registry = new CollectorRegistry();
         this.requestGauge = Gauge.build()
-                .name("http_requests_total")
+                .name("http_requests_guage")
                 .help("Total HTTP requests")
                 .labelNames("method", "uri", "status")
                 .register(registry);
