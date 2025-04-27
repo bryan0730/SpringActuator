@@ -4,9 +4,14 @@ global:
 scrape_configs:
   - job_name: 'pushgateway'
     static_configs:
-      - targets: [ 'host.docker.internal:9091' ]
+      - targets: [ 'prometheus-push-gateway:9091' ]
+    metric_relabel_configs:
+      - source_labels: [ __name__, uri ]
+        regex: http_requests_total;/users/.*/info
+        target_label: uri
+        replacement: /users
+        action: replace
   - job_name: 'spring-actuator-prometheus'
     metrics_path: '/actuator/prometheus' # Application prometheus endpoint
     static_configs:
       - targets: ['host.docker.internal:7777'] # Application host:port
-
