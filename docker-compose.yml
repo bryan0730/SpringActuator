@@ -11,6 +11,15 @@ services:
     networks:
       - monitoring  # 네트워크
 
+  prometheus-push-gateway:
+    image : prom/pushgateway:latest
+    container_name: prometheus-push-gateway
+    ports:
+      - "9091:9091"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - monitoring  # 네트워크
 
   grafana:
     image: grafana/grafana
@@ -23,8 +32,13 @@ services:
       - monitoring  # 네트워크
     environment:
       - GF_SECURITY_ADMIN_USER=admin  # Grafana 기본 사용자명
-      - GF_SECURITY_ADMIN_PASSWORD=admin  # Grafana 기본 비밀번
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Grafana 기본 비밀번호
+    volumes:
+      - ./provisioning:/etc/grafana/provisioning
 
 networks:
   monitoring:
     driver: bridge
+
+volumes:
+  grafana-storage:  # ✅ 정의 추가
